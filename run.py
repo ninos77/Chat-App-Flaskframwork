@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, redirect
 
 app = Flask(__name__)
 
@@ -10,6 +10,10 @@ def add_message(username, message):
     messages.append(f"{username}: {message}")
 
 
+def get_all_messages():
+    return "<br>".join(messages)
+
+
 @app.route("/")
 def index():
     return "<h1> Hello there </h2>"
@@ -17,7 +21,7 @@ def index():
 
 @app.route("/<username>")
 def user(username):
-    return "Welcome: " + username
+    return f"<h1>Welcome,{username}<h1/>{get_all_messages()}"
 
 
 @app.route("/<username>/<message>")
